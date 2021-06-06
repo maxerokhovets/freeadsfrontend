@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, Container, NavbarBrand, Nav, NavLink, Form, FormControl, Button, Modal } from 'react-bootstrap';
+import { Navbar, Container, NavbarBrand, Nav, NavLink, Form, FormControl, Button, Modal, Row, Col } from 'react-bootstrap';
 import logo from './logo192.png';
 import NavbarToggle from 'react-bootstrap/esm/NavbarToggle';
 import NavbarCollapse from 'react-bootstrap/esm/NavbarCollapse';
@@ -8,6 +8,8 @@ import { Route, BrowserRouter, Switch, Link } from "react-router-dom";
 import Home from '../Pages/Home';
 import About from '../Pages/About';
 import Contacts from '../Pages/Contacts';
+import closeIcon from './close-icon.png';
+
 
 export default class Header extends Component {
     constructor() {
@@ -65,16 +67,30 @@ export default class Header extends Component {
                     </Switch>
                 </BrowserRouter>
                 <Modal show={this.state.show}
-                    size="lg"
+                    size="md"
                     aria-labelledby="contained-modal-title-vcenter"
                     centered >
-                    <Modal.Header>
-                        <Modal.Title>
-                            <h3>Вход</h3>
-                            <Button inline onClick={() => { this.handleModal() }}>Close</Button>
-                        </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body><h1>luka pidor</h1></Modal.Body>
+                    <Modal.Body>
+                        <Container fluid>
+                            <Row>
+                                <Col>
+                                </Col>
+                                <Col className="text-center mt-3">
+                                    <h3>Вход</h3>
+                                </Col>
+                                <Col className="text-right">
+                                    <Button variant="outline-dark" size="sm" onClick={() => { this.handleModal() }}>
+                                        X
+                                    </Button>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col className="text-center mt-2">
+                                    <h6>Нет аккаунта?<Button variant="link" size="sm"><h6>Зарегестрируйтесь здесь.</h6></Button></h6>
+                                </Col>
+                            </Row>
+                        </Container>
+                    </Modal.Body>
                 </Modal>
 
             </>
