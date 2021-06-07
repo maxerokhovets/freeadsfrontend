@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, Container, NavbarBrand, Nav, NavLink, Form, FormControl, Button, Modal, Row, Col } from 'react-bootstrap';
+import { Navbar, Container, NavbarBrand, Nav, NavLink, Form, FormControl, Button, Modal, Row, Col, Tooltip, OverlayTrigger } from 'react-bootstrap';
 import logo from './logo192.png';
 import NavbarToggle from 'react-bootstrap/esm/NavbarToggle';
 import NavbarCollapse from 'react-bootstrap/esm/NavbarCollapse';
@@ -8,7 +8,8 @@ import { Route, BrowserRouter, Switch, Link } from "react-router-dom";
 import Home from '../Pages/Home';
 import About from '../Pages/About';
 import Contacts from '../Pages/Contacts';
-import closeIcon from './close-icon.png';
+import LoginForm from './LoginForm';
+
 
 
 export default class Header extends Component {
@@ -86,7 +87,34 @@ export default class Header extends Component {
                             </Row>
                             <Row>
                                 <Col className="text-center mt-2">
-                                    <h6>Нет аккаунта?<Button variant="link" size="sm"><h6>Зарегестрируйтесь здесь.</h6></Button></h6>
+                                    <h6>Нет аккаунта?
+                                        <OverlayTrigger placement="bottom-end" delay="500"
+                                            overlay={
+                                                <Tooltip>
+                                                    <h7>Регистрация на сайте</h7>
+                                                </Tooltip>
+                                            }>
+                                            <Button variant="link" size="sm"><h6>Зарегестрируйтесь здесь.</h6></Button>
+                                        </OverlayTrigger>
+                                    </h6>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col className="text-left">
+                                    <LoginForm />
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col className="mt-2">
+                                    <OverlayTrigger placement="bottom-end" delay="500" 
+                                    overlay={
+                                        <Tooltip>
+                                            <h7>Восстановление пароля</h7>
+                                        </Tooltip>
+                                    }
+                                    >
+                                        <Button variant="link" size="sm"><h6>Забыли пароль?</h6></Button>
+                                    </OverlayTrigger>
                                 </Col>
                             </Row>
                         </Container>
