@@ -9,13 +9,15 @@ import Home from '../Pages/Home';
 import About from '../Pages/About';
 import Contacts from '../Pages/Contacts';
 import LoginForm from './LoginForm';
+import RegistrationModal from './RegistrationModal';
 
 
 
 export default class Header extends Component {
+    static showRegistrationModal = false
     constructor() {
         super()
-        this.state = { show:false }
+        this.state = { show: false }
     }
     render() {
         return (
@@ -88,13 +90,13 @@ export default class Header extends Component {
                             <Row>
                                 <Col className="text-center mt-2">
                                     <h6>Нет аккаунта?
-                                        <OverlayTrigger placement="bottom-end" delay="500"
+                                        <OverlayTrigger placement="bottom-end" delay="200"
                                             overlay={
                                                 <Tooltip>
                                                     <h7>Регистрация на сайте</h7>
                                                 </Tooltip>
                                             }>
-                                            <Button variant="link" size="sm"><h6>Зарегестрируйтесь здесь.</h6></Button>
+                                            <Button variant="link" size="sm" onClick={() => { this.registrationModal() }}><h6>Зарегестрируйтесь здесь.</h6></Button>
                                         </OverlayTrigger>
                                     </h6>
                                 </Col>
@@ -106,7 +108,7 @@ export default class Header extends Component {
                             </Row>
                             <Row>
                                 <Col className="mt-2">
-                                    <OverlayTrigger placement="bottom-end" delay="500" 
+                                    <OverlayTrigger placement="bottom-end" delay="200" 
                                     overlay={
                                         <Tooltip>
                                             <h7>Восстановление пароля</h7>
@@ -120,12 +122,16 @@ export default class Header extends Component {
                         </Container>
                     </Modal.Body>
                 </Modal>
-
+                <RegistrationModal show={this.showRegistrationModal} />
             </>
         )
     }
     handleModal() {
         this.setState({ show: !this.state.show })
+    }
+    registrationModal() {
+        this.setState({ show: !this.state.show })
+        this.showRegistrationModal = true
     }
 }
 
