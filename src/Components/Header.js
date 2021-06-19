@@ -9,15 +9,13 @@ import Home from '../Pages/Home';
 import About from '../Pages/About';
 import Contacts from '../Pages/Contacts';
 import LoginForm from './LoginForm';
-import RegistrationModal from './RegistrationModal';
-
+import RegistrationForm from './RegistrationForm';
 
 
 export default class Header extends Component {
-    static showRegistrationModal = false
     constructor() {
         super()
-        this.state = { show: false }
+        this.state = { show: false, showRegistartion: false }
     }
     render() {
         return (
@@ -122,7 +120,34 @@ export default class Header extends Component {
                         </Container>
                     </Modal.Body>
                 </Modal>
-                <RegistrationModal show={this.showRegistrationModal} />
+                <Modal show={this.state.showRegistartion}
+                    size="md"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                >
+                    <Modal.Body>
+                        <Container fluid>
+                            <Row>
+                                <Col>
+                                </Col>
+                                <Col className="text-center mt-3">
+                                    <h3>Регистрация</h3>
+                                </Col>
+                                <Col className="text-right">
+                                    <Button variant="outline-dark" size="sm" onClick={() => { this.hideRegistrationModal() }}>
+                                        X
+                                </Button>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col className="text-left">
+                                    <RegistrationForm/>
+                                </Col>
+                            </Row>
+                        </Container>
+
+                    </Modal.Body>
+                </Modal>
             </>
         )
     }
@@ -131,7 +156,12 @@ export default class Header extends Component {
     }
     registrationModal() {
         this.setState({ show: !this.state.show })
-        this.showRegistrationModal = true
+        this.setState({ showRegistartion: true })
     }
+    hideRegistrationModal() {
+        this.setState({ showRegistartion: false })
+    }
+    
+    
 }
 
