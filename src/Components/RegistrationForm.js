@@ -23,7 +23,7 @@ export default class LoginForm extends Component {
 
                     <Form.Group className="mb-4" controlId="formBasicPassword1">
                         <Form.Label className="text-left">Повторите пароль</Form.Label>
-                        <Form.Control type="password" placeholder="Повторите пароль" />
+                        <Form.Control type="password" placeholder="Пароли должны совпадать" />
                     </Form.Group>
 
                     <Button variant="dark" size="lg" type="submit">
