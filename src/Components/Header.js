@@ -4,18 +4,17 @@ import logo from './logo192.png';
 import NavbarToggle from 'react-bootstrap/esm/NavbarToggle';
 import NavbarCollapse from 'react-bootstrap/esm/NavbarCollapse';
 import searchIcon from './search-icon.png';
-import { Route, BrowserRouter, Switch, Link } from "react-router-dom";
+import { Route, BrowserRouter, Switch } from "react-router-dom";
 import Home from '../Pages/Home';
 import About from '../Pages/About';
 import Contacts from '../Pages/Contacts';
-import LoginForm from './LoginForm';
-import RegistrationForm from './RegistrationForm';
+import LoginModal from './LoginModal';
 
 
 export default class Header extends Component {
     constructor() {
         super()
-        this.state = { show: false, showRegistartion: false }
+        this.state = { showLoginModal: false, showRegistartion: false }
     }
     render() {
         return (
@@ -56,7 +55,7 @@ export default class Header extends Component {
                                     />
                                 </Button>
                             </Form>
-                            <Button className="ml-3" variant="outline-info" onClick={() => { this.handleModal() }}>Вход</Button>
+                            <Button className="ml-3" variant="outline-info" onClick={() =>this.handleLoginModal()}>Вход</Button>
                         </NavbarCollapse>
                     </Container>
                 </Navbar>
@@ -67,92 +66,16 @@ export default class Header extends Component {
                         <Route exact path="/contacts" component={Contacts} />
                     </Switch>
                 </BrowserRouter>
-                <Modal show={this.state.show}
-                    size="md"
-                    aria-labelledby="contained-modal-title-vcenter"
-                    centered >
-                    <Modal.Body>
-                        <Container fluid>
-                            <Row>
-                                <Col>
-                                </Col>
-                                <Col className="text-center mt-3">
-                                    <h3>Вход</h3>
-                                </Col>
-                                <Col className="text-right">
-                                    <Button variant="outline-dark" size="sm" onClick={() => { this.handleModal() }}>
-                                        X
-                                    </Button>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col className="text-center mt-2">
-                                    <h6>Нет аккаунта?
-                                        <OverlayTrigger placement="bottom-end" delay="200"
-                                            overlay={
-                                                <Tooltip>
-                                                    <h7>Регистрация на сайте</h7>
-                                                </Tooltip>
-                                            }>
-                                            <Button variant="link" size="sm" onClick={() => { this.registrationModal() }}><h6>Зарегестрируйтесь здесь.</h6></Button>
-                                        </OverlayTrigger>
-                                    </h6>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col className="text-left">
-                                    <LoginForm />
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col className="mt-2">
-                                    <OverlayTrigger placement="bottom-end" delay="200" 
-                                    overlay={
-                                        <Tooltip>
-                                            <h7>Восстановление пароля</h7>
-                                        </Tooltip>
-                                    }
-                                    >
-                                        <Button variant="link" size="sm"><h6>Забыли пароль?</h6></Button>
-                                    </OverlayTrigger>
-                                </Col>
-                            </Row>
-                        </Container>
-                    </Modal.Body>
-                </Modal>
-                <Modal show={this.state.showRegistartion}
-                    size="md"
-                    aria-labelledby="contained-modal-title-vcenter"
-                    centered
-                >
-                    <Modal.Body>
-                        <Container fluid>
-                            <Row>
-                                <Col>
-                                </Col>
-                                <Col className="text-center mt-3">
-                                    <h3>Регистрация</h3>
-                                </Col>
-                                <Col className="text-right">
-                                    <Button variant="outline-dark" size="sm" onClick={() => { this.hideRegistrationModal() }}>
-                                        X
-                                </Button>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col className="text-left">
-                                    <RegistrationForm/>
-                                </Col>
-                            </Row>
-                        </Container>
-
-                    </Modal.Body>
-                </Modal>
+                <LoginModal show={this.state.showLoginModal}
+                            handle={() => this.handleLoginModal()}
+                            auth={this.props.auth}
+                            handleAuth={this.props.handleAuth}/>
+                
             </>
         )
     }
-    handleModal() {
-        this.setState({ show: !this.state.show })
+    handleLoginModal() {
+        this.setState({ showLoginModal: !this.state.showLoginModal })
     }
     registrationModal() {
         this.setState({ show: !this.state.show })
