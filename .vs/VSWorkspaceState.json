@@ -2,9 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\Components",
-    "\\src\\Pages"
+    "\\src\\Components"
   ],
-  "SelectedNode": "\\src\\Components\\Header.js",
+  "SelectedNode": "\\src\\Components\\AuthHeader.js",
   "PreviewInSolutionExplorer": false
 }

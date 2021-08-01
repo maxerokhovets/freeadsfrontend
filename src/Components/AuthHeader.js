@@ -8,6 +8,7 @@ import { Route, BrowserRouter, Switch } from "react-router-dom";
 import Home from '../Pages/Home';
 import About from '../Pages/About';
 import Contacts from '../Pages/Contacts';
+import Profile from '../Pages/Profile';
 
 export default function AuthHeader() {
 
@@ -55,7 +56,7 @@ export default function AuthHeader() {
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
-                                <Dropdown.Item>Профиль</Dropdown.Item>
+                                <Dropdown.Item href="/profile">Профиль</Dropdown.Item>
                                 <Dropdown.Item>Добавить объявление</Dropdown.Item>
                                 <Dropdown.Item>Мои объявления</Dropdown.Item>
                                 <Dropdown.Item>Избранное</Dropdown.Item>
@@ -71,13 +72,16 @@ export default function AuthHeader() {
                     <Route exact path="/" component={Home} />
                     <Route exact path="/about" component={About} />
                     <Route exact path="/contacts" component={Contacts} />
+                    <Route exact path="/profile" component={Profile} />
                 </Switch>
             </BrowserRouter>
         </>
         )
 
-        function signOut(){
-            localStorage.removeItem("ACCESS_TOKEN")
-            window.location.reload()
+    async function signOut() {
+        const url = "https://localhost:1000/auth/logout"
+        await fetch(url)
+        localStorage.removeItem("ACCESS_TOKEN")
+        window.location.reload()
         }
 }
