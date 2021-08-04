@@ -1,8 +1,30 @@
+import { useEffect, useRef, useState } from "react";
 import { Container, Row, Figure, Col, Button } from "react-bootstrap";
 import emptyAva from './emptyAvatar.png';
 
 export default function Profile() {
 
+    const [username, setUsername] = useState("")
+    const [email, setEmail] = useState("")
+
+    useEffect(loadCurrentUserProfile, [])
+
+    async function loadCurrentUserProfile() {
+        const url = "https://localhost:1000/user/me"
+        const authHeader = 'Bearer ' + localStorage.getItem("ACCESS_TOKEN")
+        const result = await fetch(url, {
+            method: 'GET',
+            headers: {
+                "Content-Type": 'application/JSON',
+                "Accept": 'application/JSON',
+                "Authorization":  authHeader 
+            }
+        })
+        const response = await result.json()
+        setUsername(response.username)
+        setEmail(response.email)
+        console.log(response)
+    }
 
     return (
         <Container fluid>
@@ -20,7 +42,10 @@ export default function Profile() {
                         </Figure.Caption>
                     </Figure>
                 </Col>
-                <Col></Col>
+                <Col className="text-left mt-5">
+                    <h3>{username}</h3>
+                    <h3>{email}</h3>
+                </Col>
             </Row>
             <Row>
                 <Col className="text-center mt-3">
