@@ -4,11 +4,12 @@ import logo from './logo192.png';
 import NavbarToggle from 'react-bootstrap/esm/NavbarToggle';
 import NavbarCollapse from 'react-bootstrap/esm/NavbarCollapse';
 import searchIcon from './search-icon.png';
-import { Route, BrowserRouter, Switch } from "react-router-dom";
+import { Route, BrowserRouter, Switch, Redirect } from "react-router-dom";
 import Home from '../Pages/Home';
 import About from '../Pages/About';
 import Contacts from '../Pages/Contacts';
 import LoginModal from './LoginModal';
+import Profile from '../Pages/Profile';
 
 
 export default class Header extends Component {
@@ -64,6 +65,9 @@ export default class Header extends Component {
                         <Route exact path="/" component={Home} />
                         <Route exact path="/about" component={About} />
                         <Route exact path="/contacts" component={Contacts} />
+                        <Route exact path="/profile">
+                            {!this.props.auth ? <Redirect to="/" /> : <Profile />}
+                        </Route>
                     </Switch>
                 </BrowserRouter>
                 <LoginModal show={this.state.showLoginModal}

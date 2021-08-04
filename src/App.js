@@ -17,7 +17,7 @@ function App() {
     if (!isAuthenticated) {
         return <Header auth={isAuthenticated} />
     } else {
-        return <AuthHeader />
+        return <AuthHeader auth={isAuthenticated} />
     }
     
 }

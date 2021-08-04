@@ -1,16 +1,18 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Navbar, Container, NavbarBrand, Nav, NavLink, Form, FormControl, Button, Dropdown } from 'react-bootstrap';
 import logo from './logo192.png';
 import NavbarToggle from 'react-bootstrap/esm/NavbarToggle';
 import NavbarCollapse from 'react-bootstrap/esm/NavbarCollapse';
 import searchIcon from './search-icon.png';
-import { Route, BrowserRouter, Switch } from "react-router-dom";
+import { Route, BrowserRouter, Switch, Redirect } from "react-router-dom";
 import Home from '../Pages/Home';
 import About from '../Pages/About';
 import Contacts from '../Pages/Contacts';
 import Profile from '../Pages/Profile';
 
-export default function AuthHeader() {
+
+
+export default function AuthHeader(props) {
 
     return (
         <>
@@ -72,7 +74,9 @@ export default function AuthHeader() {
                     <Route exact path="/" component={Home} />
                     <Route exact path="/about" component={About} />
                     <Route exact path="/contacts" component={Contacts} />
-                    <Route exact path="/profile" component={Profile} />
+                    <Route exact path="/profile">
+                        {!props.auth ? <Redirect to="/" /> : <Profile />}
+                    </Route>
                 </Switch>
             </BrowserRouter>
         </>
@@ -82,6 +86,7 @@ export default function AuthHeader() {
         const url = "https://localhost:1000/auth/logout"
         await fetch(url)
         localStorage.removeItem("ACCESS_TOKEN")
+        
         window.location.reload()
         }
 }
