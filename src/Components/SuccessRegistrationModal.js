@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, Container, Row, Col, Modal } from 'react-bootstrap';
-import LoginModal from "./LoginModal";
 
 export default function SuccessRegistrationModal(props) {
     

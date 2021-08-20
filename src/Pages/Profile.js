@@ -1,11 +1,18 @@
-import { useEffect, useRef, useState } from "react";
-import { Container, Row, Figure, Col, Button } from "react-bootstrap";
-import emptyAva from './emptyAvatar.png';
+import { useEffect, useState } from "react"
+import { Container, Row, Figure, Col, Button } from "react-bootstrap"
+import SetProfilePhotoModal from "../Components/SetProfilePhotoModal"
+import emptyAva from './emptyAvatar.png'
 
 export default function Profile() {
 
     const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
+    const [registrationDate, setRegistrationDate] = useState("")
+    const [addsCount, setAddsCount] = useState("")
+    const [avatarUrl, setAvatarUrl] = useState(null)
+    const [showSetPhotoModal, setShowPhotoModal] = useState(false)
+    const handleSetPhotoModal = () => setShowPhotoModal(!showSetPhotoModal)
+
 
     useEffect(loadCurrentUserProfile, [])
 
@@ -23,7 +30,16 @@ export default function Profile() {
         const response = await result.json()
         setUsername(response.username)
         setEmail(response.email)
-        console.log(response)
+        let dateArr1 = response.registrationDate.split("-")
+        let dateArr2 = dateArr1[2].split("T")
+        setRegistrationDate(dateArr2[0] + "." + dateArr1[1] + "." + dateArr1[0])
+        setAddsCount(response.addsCount)
+        if (response.profilePhotoUrl != null) {
+            setAvatarUrl(response.profilePhotoUrl)
+        } else {
+            setAvatarUrl(emptyAva)
+        }
+        
     }
 
     return (
@@ -35,22 +51,25 @@ export default function Profile() {
                             width={171}
                             height={180}
                             alt="171x180"
-                            src={emptyAva}
+                            src={avatarUrl}
                         />
                         <Figure.Caption>
-                            На сайте с
+                            На сайте с {registrationDate}
                         </Figure.Caption>
                     </Figure>
                 </Col>
                 <Col className="text-left mt-5">
-                    <h3>{username}</h3>
-                    <h3>{email}</h3>
+                    <h1 className="mb-5">{username}</h1>
+                    <font color="grey">Адрес электронной почты</font>
+                    <h5>{email}</h5>
+                    <h5 className="mt-5">Объявлений опубликовано: {addsCount}</h5>
                 </Col>
             </Row>
             <Row>
                 <Col className="text-center mt-3">
-                    <Button variant="dark" size="sm">
-                        Изменить изображение профиля
+                    <SetProfilePhotoModal show={showSetPhotoModal} handle={handleSetPhotoModal} avatar={avatarUrl} />
+                    <Button variant="dark" size="sm" onClick={handleSetPhotoModal}>
+                        Изменить фотографию профиля
                     </Button>
                 </Col>
                 <Col></Col>

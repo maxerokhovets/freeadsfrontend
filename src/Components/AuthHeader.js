@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Navbar, Container, NavbarBrand, Nav, NavLink, Form, FormControl, Button, Dropdown } from 'react-bootstrap';
 import logo from './logo192.png';
 import NavbarToggle from 'react-bootstrap/esm/NavbarToggle';

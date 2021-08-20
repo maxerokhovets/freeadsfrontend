@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Header from './Components/Header';
-import React, { useState } from "react"
+import React from "react"
 import AuthHeader from './Components/AuthHeader';
 
 function App() {
