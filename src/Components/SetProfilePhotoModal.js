@@ -80,7 +80,7 @@ export default function SetProfilePhotoModal(props) {
                         src={image}
                     />
                 </Figure>
-                <Form.Group controlId="formFile" className="mb-3">
+                <Form.Group className="mb-3">
                     <Form.Control type="file" onChange={(e) => { handleNewImage(e.target.files[0])}} />
                 </Form.Group>
                 <font color="red" size="4" className="mb-1">{message}</font>

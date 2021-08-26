@@ -9,7 +9,7 @@ export default class Home extends Component {
     }
 
     async componentDidMount() {
-        const url = "https://localhost:1000/ads"
+        const url = "https://localhost:1000/ads/getads"
         const response = await fetch(url)
         const data = await response.json()
         this.setState({ responseData: data })
