@@ -10,6 +10,7 @@ import About from '../Pages/About';
 import Contacts from '../Pages/Contacts';
 import Profile from '../Pages/Profile';
 import AdCreationPage from '../Pages/AdCreationPage';
+import MyAdsPage from '../Pages/MyAdsPage';
 
 
 
@@ -61,7 +62,7 @@ export default function AuthHeader(props) {
                             <Dropdown.Menu>
                                 <Dropdown.Item href="/profile">Профиль</Dropdown.Item>
                                 <Dropdown.Item href="/createad">Добавить объявление</Dropdown.Item>
-                                <Dropdown.Item>Мои объявления</Dropdown.Item>
+                                <Dropdown.Item href="/myads">Мои объявления</Dropdown.Item>
                                 <Dropdown.Item>Избранное</Dropdown.Item>
                                 <Dropdown.Item>Сообщения</Dropdown.Item>
                                 <Dropdown.Item onClick={signOut}>Выход</Dropdown.Item>
@@ -79,6 +80,7 @@ export default function AuthHeader(props) {
                         {!props.auth ? <Redirect to="/" /> : <Profile />}
                     </Route>
                     <Route exact path="/createad" component={AdCreationPage} />
+                    <Route exact path="/myads" component={MyAdsPage} />
                 </Switch>
             </BrowserRouter>
         </>
