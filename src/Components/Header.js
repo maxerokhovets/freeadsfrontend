@@ -10,6 +10,8 @@ import About from '../Pages/About';
 import Contacts from '../Pages/Contacts';
 import LoginModal from './LoginModal';
 import Profile from '../Pages/Profile';
+import AdCreationPage from '../Pages/AdCreationPage';
+import MyAdsPage from '../Pages/MyAdsPage';
 
 
 export default class Header extends Component {
@@ -67,6 +69,12 @@ export default class Header extends Component {
                         <Route exact path="/contacts" component={Contacts} />
                         <Route exact path="/profile">
                             {!this.props.auth ? <Redirect to="/" /> : <Profile />}
+                        </Route>
+                        <Route exact path="/createad">
+                            {!this.props.auth ? <Redirect to="/" /> : <AdCreationPage />}
+                        </Route>
+                        <Route exact path="/myads">
+                            {!this.props.auth ? <Redirect to="/" /> : <MyAdsPage />}
                         </Route>
                     </Switch>
                 </BrowserRouter>

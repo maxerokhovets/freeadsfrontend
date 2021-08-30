@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Navbar, Container, NavbarBrand, Nav, NavLink, Form, FormControl, Button, Dropdown } from 'react-bootstrap';
 import logo from './logo192.png';
 import NavbarToggle from 'react-bootstrap/esm/NavbarToggle';
@@ -15,6 +15,9 @@ import MyAdsPage from '../Pages/MyAdsPage';
 
 
 export default function AuthHeader(props) {
+
+    const [redirectToMyAdsPage, setRedirectToMyAdsPage] = useState(false)
+    const redirectHandler = () => setRedirectToMyAdsPage(!redirectToMyAdsPage)
 
     return (
         <>
@@ -76,10 +79,10 @@ export default function AuthHeader(props) {
                     <Route exact path="/" component={Home} />
                     <Route exact path="/about" component={About} />
                     <Route exact path="/contacts" component={Contacts} />
-                    <Route exact path="/profile">
-                        {!props.auth ? <Redirect to="/" /> : <Profile />}
+                    <Route exact path="/profile" component={Profile} />
+                    <Route exact path="/createad" component={AdCreationPage}>
+                        {redirectToMyAdsPage ? <Redirect to="/myads" /> : <AdCreationPage redirect={redirectHandler} />}
                     </Route>
-                    <Route exact path="/createad" component={AdCreationPage} />
                     <Route exact path="/myads" component={MyAdsPage} />
                 </Switch>
             </BrowserRouter>

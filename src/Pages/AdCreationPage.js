@@ -3,7 +3,7 @@ import { Alert, Col, Container, Form, Row, Figure, Button } from "react-bootstra
 import no_picture_available from './No_picture_available.png'
 
 
-export default function AdCreationPage() {
+export default function AdCreationPage(props) {
 
     const [priceFieldDisabled, setPriceFieldDisabled] = useState(true)
     const [checkedRadio1, setCheckedRadio1] = useState(true)
@@ -14,6 +14,7 @@ export default function AdCreationPage() {
     const [title, setTitle] = useState("")
     const [category, setCategory] = useState("Без категории")
     const [description, setDescription] = useState("")
+    const [message, setMessage] = useState("")
 
     const handleCover = (v) => {
         setCover(URL.createObjectURL(v))
@@ -28,27 +29,35 @@ export default function AdCreationPage() {
     }
 
     async function createAd() {
-        const authHeader = 'Bearer ' + localStorage.getItem("ACCESS_TOKEN")
-        const createAdUrl = "https://localhost:1000/ads/createad"
-        const formData = new FormData()
-        formData.append('title', title)
-        formData.append('category', category)
-        formData.append('description', description)
-        formData.append('price', price)
-        formData.append('cover', coverFile)
+        setMessage("")
+        if (coverFile === null) {
+            setMessage("Для публикации объявления заполните обязательные поля.")
+        } else {
+            const authHeader = 'Bearer ' + localStorage.getItem("ACCESS_TOKEN")
+            const createAdUrl = "https://localhost:1000/ads/createad"
+            const formData = new FormData()
+            formData.append('title', title)
+            formData.append('category', category)
+            formData.append('description', description)
+            formData.append('price', price)
+            formData.append('cover', coverFile)
 
-        let data = await fetch(createAdUrl, {
-            method: 'POST',
-            body: formData,
-            headers: {
-                "Authorization": authHeader
+            let data = await fetch(createAdUrl, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    "Authorization": authHeader
+                }
+            })
+            const createAdResponse = await data.json()
+            if (createAdResponse.success === false) {
+                setMessage(createAdResponse.message)
+            } else {
+                props.redirect()
             }
-        })
+ 
+        }
 
-        const createAdResponse = await data.json()
-
-        console.log(createAdResponse)
-        
     }
 
     useEffect(() => { document.title = 'Добавить объявление' })
@@ -121,7 +130,7 @@ export default function AdCreationPage() {
                                 </Form.Text>
                             </Form.Group>
                             <Form.Group className="mb-3 mt-4">
-                                <Form.Label><h4>5. Добавьте фото товара</h4></Form.Label>
+                                <Form.Label><h4>5. Добавьте фото товара*</h4></Form.Label>
                                 <Row className="text-center">
                                     <Figure>
                                         <Figure.Image
@@ -132,7 +141,7 @@ export default function AdCreationPage() {
                                         />
                                     </Figure>
                                 </Row>
-                                <Form.Control type="file" onChange={(e) => handleCover(e.target.files[0])} />
+                                <Form.Control type="file" accept="image/*" onChange={(e) => handleCover(e.target.files[0])} />
                                 <Form.Text className="text-muted mt-2">
                                     Данное фото будет обложкой объявления. Больше фото можно
                                 </Form.Text>
@@ -142,8 +151,9 @@ export default function AdCreationPage() {
                                 <Form.Text className="mt-4">
                                     <h5>* - поля обязательные для заполнения</h5>
                                 </Form.Text>
+                                <font color="red" size="4" className="mb-1">{message}</font>
                             </Form.Group>
-                            <Button className="mt-4"
+                            <Button className="mt-3"
                                 onClick={createAd}
                                 size="lg"
                                 variant="dark">Опубликовать</Button>
