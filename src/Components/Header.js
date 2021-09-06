@@ -12,6 +12,7 @@ import LoginModal from './LoginModal';
 import Profile from '../Pages/Profile';
 import AdCreationPage from '../Pages/AdCreationPage';
 import MyAdsPage from '../Pages/MyAdsPage';
+import AdPage from '../Pages/AdPage';
 
 
 export default class Header extends Component {
@@ -22,7 +23,7 @@ export default class Header extends Component {
     render() {
         return (
             <>
-                <Navbar static="top" collapseOnSelect expand="md" bg="dark" variant="dark">
+                <Navbar sticky="top" collapseOnSelect expand="md" bg="dark" variant="dark">
                     <Container>
                         <NavbarBrand href="/">
                             <img
@@ -75,6 +76,9 @@ export default class Header extends Component {
                         </Route>
                         <Route exact path="/myads">
                             {!this.props.auth ? <Redirect to="/" /> : <MyAdsPage />}
+                        </Route>
+                        <Route exact path="/ads/ad">
+                            <AdPage />
                         </Route>
                     </Switch>
                 </BrowserRouter>

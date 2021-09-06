@@ -104,6 +104,7 @@ export default function LoginModal(props) {
             setMessage("Неверные данные пользователя или пароль.")
         } else {
             localStorage.setItem("ACCESS_TOKEN", response.accessToken)
+            localStorage.setItem("current_user", response.username)
             setUsernameOrEmail("")
             setPassword("")
             setMessage("")

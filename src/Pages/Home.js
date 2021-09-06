@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Container } from 'react-bootstrap';
+import AdsViewer from '../Components/AdsViewer';
 
 
 export default class Home extends Component {
@@ -12,16 +14,15 @@ export default class Home extends Component {
         const url = "https://localhost:1000/ads/getads"
         const response = await fetch(url)
         const data = await response.json()
-        this.setState({ responseData: data })
+        this.setState({ responseData: data.reverse() })
     }
 
     render() {
         const ads = this.state.responseData
         return (
-            <>
-                {ads.map((ad) => <li key={ad.id}><h2>{ad.category}    {ad.title}   {ad.price}</h2></li>)}
-               
-            </>
+            <Container fluid>
+                <AdsViewer arg={ads} />
+            </Container>
         )
     }
 }

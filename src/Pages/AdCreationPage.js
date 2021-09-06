@@ -93,6 +93,7 @@ export default function AdCreationPage(props) {
                                     <option>Мебель</option>
                                     <option>Спорт</option>
                                     <option>Музыка</option>
+                                    <option>Книги</option>
                                 </Form.Control>
                             </Form.Group>
                             <Form.Group className="mb-3 mt-4">

@@ -11,17 +11,19 @@ import Contacts from '../Pages/Contacts';
 import Profile from '../Pages/Profile';
 import AdCreationPage from '../Pages/AdCreationPage';
 import MyAdsPage from '../Pages/MyAdsPage';
+import AdPage from '../Pages/AdPage';
 
 
 
-export default function AuthHeader(props) {
+export default function AuthHeader() {
 
     const [redirectToMyAdsPage, setRedirectToMyAdsPage] = useState(false)
     const redirectHandler = () => setRedirectToMyAdsPage(!redirectToMyAdsPage)
 
+
     return (
         <>
-            <Navbar static="top" collapseOnSelect expand="md" bg="dark" variant="dark">
+            <Navbar sticky="top" collapseOnSelect expand="md" bg="dark" variant="dark">
                 <Container>
                     <NavbarBrand href="/">
                         <img
@@ -66,7 +68,6 @@ export default function AuthHeader(props) {
                                 <Dropdown.Item href="/profile">Профиль</Dropdown.Item>
                                 <Dropdown.Item href="/createad">Добавить объявление</Dropdown.Item>
                                 <Dropdown.Item href="/myads">Мои объявления</Dropdown.Item>
-                                <Dropdown.Item>Избранное</Dropdown.Item>
                                 <Dropdown.Item>Сообщения</Dropdown.Item>
                                 <Dropdown.Item onClick={signOut}>Выход</Dropdown.Item>
                             </Dropdown.Menu>
@@ -80,10 +81,15 @@ export default function AuthHeader(props) {
                     <Route exact path="/about" component={About} />
                     <Route exact path="/contacts" component={Contacts} />
                     <Route exact path="/profile" component={Profile} />
-                    <Route exact path="/createad" component={AdCreationPage}>
+                    <Route exact path="/createad">
                         {redirectToMyAdsPage ? <Redirect to="/myads" /> : <AdCreationPage redirect={redirectHandler} />}
                     </Route>
-                    <Route exact path="/myads" component={MyAdsPage} />
+                    <Route exact path="/myads">
+                        <MyAdsPage />
+                    </Route>
+                    <Route exact path="/ads/ad">
+                        <AdPage />
+                    </Route>  
                 </Switch>
             </BrowserRouter>
         </>
