@@ -99,6 +99,7 @@ export default function AuthHeader() {
         const url = "https://localhost:1000/auth/logout"
         await fetch(url)
         localStorage.removeItem("ACCESS_TOKEN")
+        localStorage.removeItem("current_user")
         window.location.reload()
         }
 }
